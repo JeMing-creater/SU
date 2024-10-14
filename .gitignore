@@ -1,0 +1,9 @@
+/logs
+/__pycache__
+/model_store
+/src/__pycache__
+/src/models/__pycache__
+/small
+/causal-conv1d
+/SegMamba-main
+/selective_scan

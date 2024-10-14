@@ -1,0 +1,89 @@
+trainer:
+  num_epochs: 300
+  val_epochs: 10
+  warmup: 2
+  train_ratio: 0.8
+  batch_size: 1
+  lr: 0.001
+  # min_lr: 0.000001
+  min_lr: 0.000001
+  optimizer: adamw
+  weight_decay: 0.05
+  weight_decay_end: 0.04
+  momentum_teacher: 0.996
+  # 模型训练配置
+  mask_ratio: 0.7
+  pred_ratio_var: 0
+  cls_ratio: 0.5
+  patch_ratio: 1.5
+  mae_ratio: 1
+  num_workers: 0
+  image_size:
+    MSD: 96
+    BraTS: 128
+  is_brats2019: False
+  is_HepaticVessel: False
+  MSD_HepaticVessel: /workspace/SlimUNETR/dataset/Task08_HepaticVessel/
+  brats2019: /jeming/smart-lab/datasets/cv/seg/BRaTS2019/Task01_BrainTumour/
+  brats2021: /dataset/cv/seg/BRaTS2021/
+  resume: True
+
+finetune:
+  checkpoint: LightMUNet
+  # checkpoint: BestML_v8
+  # checkpoint: Segmamba
+
+#  checkpoint: B_2221
+
+slim_unetr:
+  Mamba:
+    img_size: 128
+    in_chans: 4
+    out_chan: 3
+    kernel_size: 3
+    mlp_ratio: 4
+    drop_path: 0.
+    depths: [2, 2, 2, 2]
+    out_dim: 32
+    embed_dims: [48, 96, 192, 384]
+    num_slices_list: [64, 32, 16, 8]
+    # img_size: 128
+    # in_chans: 4
+    # out_chan: 3
+    # kernel_size: 3
+    # mlp_ratio: 4
+    # drop_path_rate: 0.
+    # layer_scale_init_value: 1e-6
+    # depths: [3, 4, 6, 3]
+    # out_dim: 32
+    # embed_dims: [64, 128, 256, 512]
+    # # embed_dims: [48, 96, 192, 384]
+    # out_indices: [0, 1, 2, 3]
+    # num_slices_list: [64, 32, 16, 8]
+  BraTS:
+    in_channels: 4
+    out_channels: 3
+    embed_dim: 96 # Different embedding_dim for different image size
+    embedding_dim: 64 # Br
+    channels: [ 24, 48, 60 ]
+    blocks: [ 1, 2, 3, 4 ]
+    heads: [ 1, 2, 4, 4 ]
+    r: [ 4, 2, 2, 1 ]
+    distillation: False
+    dropout: 0.3
+  MSD:
+    in_channels: 1
+    out_channels: 2
+    embed_dim: 96
+    embedding_dim: 27
+    channels: [ 24, 48, 60 ]
+    blocks: [ 1, 2, 3, 2 ]
+    heads: [ 1, 2, 4, 4 ]
+    r: [ 4, 2, 2, 1 ]
+    distillation: False
+    dropout: 0.3
+
+
+
+
+
